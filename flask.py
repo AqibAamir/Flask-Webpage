@@ -116,3 +116,41 @@ def subscribe():
     </form>
     <a href="/">Return to home page</a>
     '''
+
+@app.route('/terms')
+def terms():
+    return '''
+    <h1>Terms and Conditions</h1>
+    <p>Read our terms and conditions carefully before using our website.</p>
+    <a href="/">Return to home page</a>
+    '''
+
+@app.route('/privacy')
+def privacy():
+    return '''
+    <h1>Privacy Policy</h1>
+    <p>Read our privacy policy to understand how we handle your data.</p>
+    <a href="/">Return to home page</a>
+    '''
+
+@app.route('/article/<article_name>/comments')
+def article_comments(article_name):
+    comments = {
+        "breaking-news": ["Great article!", "Very informative."],
+        "latest-updates": ["I loved this update!", "Keep it coming!"]
+    }
+    
+    article_comments = comments.get(article_name, [])
+    comment_list = ''.join([f'<li>{comment}</li>' for comment in article_comments])
+    
+    return f'''
+    <h2>Comments for {article_name.replace("-", " ").title()}</h2>
+    <ul>
+        {comment_list}
+    </ul>
+    <a href="/article/{article_name}">Return to article</a><br>
+    <a href="/">Return to home page</a>
+    '''
+
+if __name__ == '__main__':
+    app.run(debug=True)

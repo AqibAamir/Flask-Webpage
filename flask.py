@@ -68,3 +68,51 @@ def reporter_articles(reporter_id):
     </ul>
     <a href="/">Return to home page</a>
     '''
+
+@app.route('/contact')
+def contact():
+    return '''
+    <h1>Contact Us</h1>
+    <p>You can contact us at contact@newswebsite.com.</p>
+    <a href="/">Return to home page</a>
+    '''
+
+@app.route('/category/<category_name>')
+def category(category_name):
+    categories = {
+        "sports": ["football", "basketball"],
+        "technology": ["ai", "blockchain"],
+        "health": ["diet", "exercise"]
+    }
+    
+    articles = categories.get(category_name, [])
+    article_links = ''.join([f'<li><a href="/article/{article}">{article.replace("-", " ").title()}</a></li>' for article in articles])
+    
+    return f'''
+    <h2>Category: {category_name.title()}</h2>
+    <ul>
+        {article_links}
+    </ul>
+    <a href="/">Return to home page</a>
+    '''
+
+@app.route('/search')
+def search():
+    return '''
+    <h1>Search</h1>
+    <p>Search for articles and reporters here.</p>
+    <a href="/">Return to home page</a>
+    '''
+
+@app.route('/subscribe')
+def subscribe():
+    return '''
+    <h1>Subscribe</h1>
+    <p>Subscribe to our newsletter for the latest updates.</p>
+    <form action="/subscribe" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <input type="submit" value="Subscribe">
+    </form>
+    <a href="/">Return to home page</a>
+    '''
